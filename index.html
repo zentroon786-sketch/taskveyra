@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>TaskVeyra — Earn Through Tasks</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--dark:#101827;--muted:#778197;--blue:#4263eb;--green:#16a36a;--border:#e7eaf1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--dark)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{background:var(--dark);color:white;padding:17px 18px;position:sticky;top:0;z-index:5}
+.top{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-size:23px;font-weight:800;letter-spacing:-.8px}.logo span{color:#7e9bff}
+.tag{font-size:11px;color:#c5cde0;margin-top:4px}
+.avatar{background:#263653;border:1px solid #455472;color:white;border-radius:50%;width:39px;height:39px}
+.layout{max-width:1100px;margin:20px auto;padding:0 14px;display:grid;grid-template-columns:205px 1fr;gap:20px}
+.sidebar,.card{background:var(--card);border:1px solid var(--border);border-radius:16px}
+.sidebar{padding:12px;height:max-content;position:sticky;top:85px}
+.nav{display:flex;align-items:center;gap:11px;width:100%;padding:12px 11px;border:0;border-radius:10px;background:white;text-align:left;color:#5c667a;margin:2px 0;font-weight:600}
+.nav.active,.nav:hover{background:#edf1ff;color:var(--blue)}
+.nav .ico{width:23px;text-align:center;font-size:17px}
+.main{min-width:0}
+h1{font-size:25px;margin:0 0 7px}h2{font-size:18px;margin:0 0 14px}
+p{line-height:1.55}.muted{color:var(--muted);font-size:13px}
+.hero{background:linear-gradient(120deg,#192b4d,#4263eb);border-radius:18px;color:white;padding:25px;margin-bottom:18px;position:relative;overflow:hidden}
+.hero h1{font-size:27px;line-height:1.25;max-width:430px}
+.hero p{color:#dce5ff;font-size:14px;max-width:440px}
+.hero button{background:white;color:#2948c7;border:0;border-radius:10px;padding:12px 16px;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.stat{padding:16px}.stat .icon{font-size:21px}.stat small{display:block;color:var(--muted);margin:10px 0 5px}.stat strong{font-size:21px}
+.card{padding:18px;margin-bottom:16px}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.link{color:var(--blue);border:0;background:none;font-weight:700}
+.job{border:1px solid var(--border);border-radius:13px;padding:15px;margin:10px 0}
+.jobtop{display:flex;justify-content:space-between;gap:10px}
+.jobtitle{font-weight:700;margin-bottom:6px}
+.pill{display:inline-block;background:#edf1ff;color:#4263eb;border-radius:30px;padding:5px 9px;font-size:11px;font-weight:700}
+.reward{font-weight:800;color:var(--green);white-space:nowrap}
+.jobmeta{display:flex;flex-wrap:wrap;gap:12px;color:var(--muted);font-size:12px;margin:12px 0}
+.primary,.secondary,.danger{border:0;border-radius:9px;padding:11px 14px;font-weight:700}
+.primary{background:var(--blue);color:white}.secondary{background:#edf1ff;color:var(--blue)}
+.danger{background:#fff0f0;color:#d33}
+input,select,textarea{width:100%;border:1px solid #dce1eb;border-radius:9px;padding:12px;background:white;color:var(--dark);margin:6px 0 14px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue)}
+label{font-size:13px;font-weight:700}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.notice{padding:12px;background:#fff8e6;border-radius:10px;color:#785914;font-size:12px;line-height:1.6;margin:12px 0}
+.success{padding:12px;background:#e9fff4;color:#087847;border-radius:10px;font-size:13px;margin:12px 0}
+.hidden{display:none!important}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border)}
+.row:last-child{border:0}
+.bigbalance{font-size:30px;font-weight:800;margin:7px 0}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.empty{text-align:center;color:var(--muted);padding:22px 8px;font-size:13px}
+.bottomnav{display:none}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 10px 28px}
+@media(max-width:700px){
+ .layout{display:block;margin:14px auto;padding:0 11px}
+ .sidebar{display:none}
+ .stats{gap:8px}.stat{padding:12px 10px}.stat strong{font-size:17px}.stat small{font-size:11px}
+ .hero{padding:20px}.hero h1{font-size:24px}
+ .bottomnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);z-index:10;justify-content:space-around;padding:7px 2px calc(7px + env(safe-area-inset-bottom))}
+ .bottomnav button{border:0;background:white;color:#667085;font-size:10px;padding:5px 3px;display:flex;flex-direction:column;gap:4px;align-items:center}
+ .bottomnav button.active{color:var(--blue);font-weight:800}
+ body{padding-bottom:70px}
+ .formgrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="top">
+  <div><div class="logo">Task<span>Veyra</span></div><div class="tag">Small tasks. Real opportunities.</div></div>
+  <button class="avatar" onclick="showPage('profile')" title="Profile">👤</button>
+ </div>
+</header>
+
+<div class="layout">
+ <aside class="sidebar" id="sidebar"></aside>
+ <main class="main">
+
+  <section id="page-home">
+   <div class="hero">
+    <div class="pill">WELCOME TO TASKVEYRA</div>
+    <h1>Turn your free time into opportunities.</h1>
+    <p>Explore microjobs, complete tasks and keep track of your work in one place.</p>
+    <button onclick="showPage('jobs')">Explore tasks →</button>
+   </div>
+   <div class="stats">
+    <div class="card stat"><span class="icon">💰</span><small>Available balance</small><strong id="homeBalance">৳0.00</strong></div>
+    <div class="card stat"><span class="icon">⏳</span><small>Pending</small><strong id="homePending">৳0.00</strong></div>
+    <div class="card stat"><span class="icon">✅</span><small>My tasks</small><strong id="homeTasks">0</strong></div>
+   </div>
+   <div class="card">
+    <div class="sectionhead"><h2>Explore jobs</h2><button class="link" onclick="showPage('jobs')">View all →</button></div>
+    <div id="homeJobs"></div>
+   </div>
+   <div class="card">
+    <h2>How TaskVeyra works</h2>
+    <div class="row"><span>🔎 Find a task</span><span class="muted">01</span></div>
+    <div class="row"><span>📝 Follow instructions and submit proof</span><span class="muted">02</span></div>
+    <div class="row"><span>🔍 Wait for review</span><span class="muted">03</span></div>
+    <div class="row"><span>💳 Request a withdrawal after approval</span><span class="muted">04</span></div>
+   </div>
+  </section>
+
+  <section id="page-jobs" class="hidden">
+   <h1>Find Jobs</h1><p class="muted">Browse tasks and see their rewards.</p>
+   <input id="searchJobs" placeholder="Search jobs..." oninput="renderJobs()">
+   <div id="jobsList"></div>
+  </section>
+
+  <section id="page-post" class="hidden">
+   <div class="card">
+    <h1>Post a Job</h1><p class="muted">Create a task for other users. Your post is stored only on this device in this demo.</p>
+    <form id="postForm">
+     <label>Job title</label><input name="title" required maxlength="90" placeholder="e.g. Test my website">
+     <div class="formgrid">
+      <div><label>Category</label><select name="category"><option>Social Media</option><option>Research</option><option>App Testing</option><option>Data Entry</option><option>Other</option></select></div>
+      <div><label>Reward (৳)</label><input name="reward" type="number" min="1" max="100000" step="1" required placeholder="20"></div>
+     </div>
+     <label>Instructions</label><textarea name="instructions" rows="4" required maxlength="1500" placeholder="Explain what the worker must do..."></textarea>
+     <label>Proof required</label><input name="proof" required placeholder="e.g. Screenshot showing completion">
+     <button class="primary" type="submit">Create job</button>
+    </form>
+    <div class="notice">Demo only: no real employer account, payment escrow or server-side moderation is connected.</div>
+   </div>
+  </section>
+
+  <section id="page-myjobs" class="hidden">
+   <h1>My Jobs</h1><p class="muted">Tasks you have submitted for review.</p><div id="myJobsList"></div>
+  </section>
+
+  <section id="page-finished" class="hidden">
+   <h1>Finished Jobs</h1><p class="muted">Tasks marked as completed in this demo.</p><div id="finishedList"></div>
+  </section>
+
+  <section id="page-wallet" class="hidden">
+   <h1>My Wallet</h1><p class="muted">Track your demo balance and requests.</p>
+   <div class="card">
+    <span class="muted">Available balance</span><div class="bigbalance" id="walletBalance">৳0.00</div>
+    <div class="stats" style="margin:12px 0 0">
+     <div><small class="muted">Earned</small><strong id="earned">৳0.00</strong></div>
+     <div><small class="muted">Pending</small><strong id="pending">৳0.00</strong></div>
+     <div><small class="muted">Deposited</small><strong id="deposited">৳0.00</strong></div>
+    </div>
+   </div>
+   <div class="card">
+    <h2>Deposit request</h2>
+    <p class="muted">Use only payment instructions officially verified by the site owner.</p>
+    <form id="depositForm">
+     <label>Payment method</label><select name="method"><option>bKash</option><option>Nagad</option><option>Rocket</option></select>
+     <label>Amount (৳)</label><input name="amount" type="number" min="1" max="100000" required>
+     <label>Sender number</label><input name="number" inputmode="numeric" required placeholder="Your payment account number">
+     <label>Transaction ID</label><input name="trx" required placeholder="Enter transaction ID">
+     <button class="primary">Submit deposit request</button>
+    </form>
+    <div class="notice">This demo cannot verify transactions or add money to your balance. Do not send money based on this form.</div>
+   </div>
+   <div class="card">
+    <h2>Withdraw request</h2>
+    <form id="withdrawForm">
+     <label>Payment method</label><select name="method"><option>bKash</option><option>Nagad</option><option>Rocket</option></select>
+     <label>Amount (৳)</label><input name="amount" type="number" min="1" required>
+     <label>Your account number</label><input name="number" inputmode="numeric" required placeholder="01XXXXXXXXX">
+     <button class="primary">Submit withdrawal request</button>
+    </form>
+    <div class="notice">No real withdrawal will be processed. This form only saves a local demo request.</div>
+   </div>
+   <div class="card"><h2>Payment request history</h2><div id="paymentHistory"></div></div>
+  </section>
+
+  <section id="page-referral" class="hidden">
+   <div class="card">
+    <h1>Referral Program</h1><p class="muted">Invite friends after the real referral system is activated.</p>
+    <div class="bigbalance">0 referrals</div>
+    <label>Demo referral code</label><input id="refCode" readonly value="TV-DEMO-001">
+    <button class="primary" onclick="copyReferral()">Copy code</button>
+    <div class="notice">This is a sample code. It does not track registrations or generate rewards yet.</div>
+   </div>
+  </section>
+
+  <section id="page-top" class="hidden">
+   <div class="card"><h1>Top Freelancers</h1><p class="muted">The live leaderboard will appear after verified user accounts and completed jobs are connected.</p><div class="empty">🏆 No verified leaderboard data yet.</div></div>
+  </section>
+
+  <section id="page-notifications" class="hidden">
+   <div class="card"><h1>Notifications</h1><div class="empty">🔔 You're all caught up in this demo.</div></div>
+  </section>
+
+  <section id="page-profile" class="hidden">
+   <div class="card">
+    <h1>My Profile</h1><p class="muted">Local demo profile — not a verified account.</p>
+    <form id="profileForm">
+     <label>Display name</label><input name="name" id="profileName" required maxlength="50" placeholder="Your name">
+     <label>Email (optional)</label><input name="email" id="profileEmail" type="email" placeholder="you@example.com">
+     <button class="primary">Save profile</button>
+    </form>
+    <div class="notice">This does not create a secure login. Anyone using this browser may be able to access local demo data.</div>
+   </div>
+   <div class="card"><h2>Settings</h2><div class="row"><span>Website version</span><span class="muted">Demo 1.0</span></div><button class="danger" onclick="resetDemo()">Reset local demo data</button></div>
+  </section>
+
+ </main>
+</div>
+
+<nav class="bottomnav" id="bottomnav"></nav>
+<footer>TaskVeyra © 2026 · Demo version · No real payments processed</footer>
+
+<script>
+const navItems=[
+ ['home','🏠','Home'],['jobs','🔎','Find Jobs'],['post','➕','Post Job'],
+ ['myjobs','📋','My Jobs'],['finished','✅','Finished Jobs'],['wallet','💰','Wallet'],
+ ['referral','🎁','Referral'],['top','🏆','Top Freelancers'],
+ ['notifications','🔔','Notifications'],['profile','👤','Profile']
+];
+const starterJobs=[
+ {id:'demo1',title:'Follow a sample social media page',category:'Social Media',reward:10,instructions:'Open the sample task instructions. In a real task, complete the requested action and upload valid proof.',proof:'Screenshot of the completed action',owner:'TaskVeyra',demo:true},
+ {id:'demo2',title:'Test a website on your phone',category:'App Testing',reward:25,instructions:'Check whether the demo website opens properly on mobile and report what you observe.',proof:'Screenshot of the website and a short note',owner:'TaskVeyra',demo:true},
+ {id:'demo3',title:'Complete a short research task',category:'Research',reward:15,instructions:'Read the task instructions carefully. Do not provide false information or someone else’s work.',proof:'Screenshot and your short written answer',owner:'TaskVeyra',demo:true}
+];
+function read(key,fallback){try{const v=localStorage.getItem('tv_'+key);return v===null?fallback:JSON.parse(v)}catch(e){return fallback}}
+function save(key,val){try{localStorage.setItem('tv_'+key,JSON.stringify(val))}catch(e){alert('Could not save data on this device.')}}
+let jobs=read('jobs',starterJobs);
+let submissions=read('submissions',[]);
+let payments=read('payments',[]);
+let wallet=read('wallet',{earned:0,pending:0,deposited:0,balance:0});
+let profile=read('profile',{name:'',email:''});
+function money(n){return '৳'+Number(n||0).toLocaleString('en-BD',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function navMarkup(){return navItems.map(([id,ico,name])=>`<button class="nav" data-page="${id}" onclick="showPage('${id}')"><span class="ico">${ico}</span>${name}</button>`).join('')}
+document.getElementById('sidebar').innerHTML=navMarkup();
+document.getElementById('bottomnav').innerHTML=navItems.slice(0,5).map(([id,ico,name])=>`<button data-page="${id}" onclick="showPage('${id}')"><span style="font-size:20px">${ico}</span>${name}</button>`).join('');
+function showPage(id){
+ document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
+ const page=document.getElementById('page-'+id);
+ if(page)page.classList.remove('hidden');
+ document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+ window.scrollTo({top:0,behavior:'smooth'});
+ if(id==='jobs')renderJobs();
+ if(id==='home')renderHome();
+ if(id==='myjobs')renderMyJobs();
+ if(id==='finished')renderFinished();
+ if(id==='wallet')renderWallet();
+ if(id==='profile'){document.getElementById('profileName').value=profile.name;document.getElementById('profileEmail').value=profile.email}
+}
+function jobCard(j){
+ const submitted=submissions.some(s=>s.jobId===j.id);
+ return `<div class="job"><div class="jobtop"><div><div class="jobtitle">${safe(j.title)}</div><span class="pill">${safe(j.category)}</span></div><div class="reward">${money(j.reward)}</div></div><div class="jobmeta"><span>👤 ${safe(j.owner||'Member')}</span><span>📎 Proof required</span></div><button class="primary" onclick="openJob('${safe(j.id)}')" ${submitted?'disabled style="opacity:.6"':''}>${submitted?'Submitted':'View task'}</button></div>`;
+}
+function renderHome(){
+ document.getElementById('homeBalance').textContent=money(wallet.balance);
+ document.getElementById('homePending').textContent=money(wallet.pending);
+ document.getElementById('homeTasks').textContent=submissions.length;
+ document.getElementById('homeJobs').innerHTML=jobs.slice(0,3).map(jobCard).join('')||'<div class="empty">No jobs yet.</div>';
+}
+function renderJobs(){
+ const q=(document.getElementById('searchJobs')?.value||'').toLowerCase();
+ const list=jobs.filter(j=>(j.title+' '+j.category+' '+j.instructions).toLowerCase().includes(q));
+ document.getElementById('jobsList').innerHTML=list.map(jobCard).join('')||'<div class="card empty">No matching jobs found.</div>';
+}
+function openJob(id){
+ const j=jobs.find(x=>x.id===id);if(!j)return;
+ const already=submissions.some(s=>s.jobId===id);
+ const details=`Task: ${j.title}\nReward: ${money(j.reward)}\nCategory: ${j.category}\n\nInstructions:\n${j.instructions}\n\nProof required:\n${j.proof}`;
+ alert(details);
+ if(already)return;
+ const proof=prompt('After completing the task, paste a proof image URL or write a short proof note.\n\nDemo only: do not submit passwords or sensitive information.');
+ if(proof===null||!proof.trim())return;
+ const sub={id:'sub'+Date.now(),jobId:j.id,title:j.title,reward:Number(j.reward),proof:proof.trim(),status:'Pending review',date:new Date().toLocaleDateString()};
+ submissions.unshift(sub);wallet.pending+=Number(j.reward);
+ save('submissions',submissions);save('wallet',wallet);
+ renderHome();renderJobs();alert('Demo submission saved on this device. No real reviewer has received it.');
+}
+function renderMyJobs(){
+ const list=document.getElementById('myJobsList');
+ list.innerHTML=submissions.length?submissions.filter(s=>s.status!=='Approved').map(s=>`<div class="job"><div class="jobtitle">${safe(s.title)}</div><div class="jobmeta"><span>${safe(s.date)}</span><span class="pill">${safe(s.status)}</span></div><p class="muted">Proof: ${safe(s.proof)}</p><span class="reward">${money(s.reward)}</span></div>`).join(''):'<div class="card empty">You have not submitted any jobs yet.</div>';
+}
+function renderFinished(){
+ const list=document.getElementById('finishedList');
+ const finished=submissions.filter(s=>s.status==='Approved');
+ list.innerHTML=finished.length?finished.map(s=>`<div class="job"><div class="jobtitle">${safe(s.title)}</div><span class="pill">Completed</span><p class="reward">${money(s.reward)}</p></div>`).join(''):'<div class="card empty">No completed jobs yet.</div>';
+}
+function renderWallet(){
+ document.getElementById('walletBalance').textContent=money(wallet.balance);
+ document.getElementById('earned').textContent=money(wallet.earned);
+ document.getElementById('pending').textContent=money(wallet.pending);
+ document.getElementById('deposited').textContent=money(wallet.deposited);
+ document.getElementById('paymentHistory').innerHTML=payments.length?payments.map(p=>`<div class="row"><div><strong>${safe(p.type)} · ${safe(p.method)}</strong><div class="muted">${safe(p.date)} · ${safe(p.number)}</div><div class="muted">${safe(p.trx||'')}</div></div><div style="text-align:right"><strong>${money(p.amount)}</strong><div class="muted">${safe(p.status)}</div></div></div>`).join(''):'<div class="empty">No payment requests yet.</div>';
+}
+document.getElementById('postForm').addEventListener('submit',e=>{
+ e.preventDefault();const f=new FormData(e.target);
+ const reward=Number(f.get('reward'));
+ if(!Number.isFinite(reward)||reward<=0){alert('Enter a valid reward.');return}
+ jobs.unshift({id:'job'+Date.now(),title:f.get('title').trim(),category:f.get('category'),reward,instructions:f.get('instructions').trim(),proof:f.get('proof').trim(),owner:profile.name||'Member',demo:true});
+ save('jobs',jobs);e.target.reset();alert('Job created in this browser demo. Other users cannot see it yet.');showPage('jobs');
+});
+document.getElementById('depositForm
